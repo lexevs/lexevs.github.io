@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns="http://LexGrid.org/schema/2006/01/LexGrid/ldap" 
+	       targetNamespace="http://LexGrid.org/schema/2006/01/LexGrid/ldap" elementFormDefault="qualified">
+	
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> ldap  -->
+        <!-- ================================================= -->
+        <xs:annotation>
+                <xs:documentation>LDAP specific types for appinfo annotation</xs:documentation>
+        </xs:annotation>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: <<XSDsimpleType>> oid  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:simpleType name="oid">
+                <xs:annotation>
+                        <xs:documentation>LDAP Object or Attribute identifier</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-2]\.[0-9]+(\.[0-9]+)*"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="rdn">
+                <xs:annotation>
+                        <xs:documentation>Name of the attribute that serves as the rdn identifier for the node</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:simpleType name="objectClass">
+                <xs:annotation>
+                        <xs:documentation>Object class name if different than type or element name</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+</xs:schema>

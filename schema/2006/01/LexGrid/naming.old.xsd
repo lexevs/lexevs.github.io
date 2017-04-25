@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ldap="http://LexGrid.org/schema/2006/01/LexGrid/ldap"
+	xmlns:lgBuiltin="http://LexGrid.org/schema/2006/01/LexGrid/builtins" 
+	xmlns="http://LexGrid.org/schema/2006/01/LexGrid/naming"
+	targetNamespace="http://LexGrid.org/schema/2006/01/LexGrid/naming" elementFormDefault="qualified">
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> naming  -->
+        <!-- ================================================= -->
+        <xs:annotation>
+                <xs:documentation>Basic builtin types</xs:documentation>
+        </xs:annotation>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: <<XSDsimpleType>> URN  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:simpleType name="URN">
+                <xs:annotation>
+                        <xs:documentation>A Univeral Resource Identifier A universal resource name. The global name of a resource such as a source, coding
+                                scheme, concept code, etc. Use of the label portion of the labeledURI is discouraged, and the type may change to"unlabeled" URI
+                                if one is introduced</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.5.6</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:restriction base="lgBuiltin:tsURN"/>
+        </xs:simpleType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: URNMap  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="URNMap">
+                <xs:annotation>
+                        <xs:documentation> A URN that references an entity of a specified type (e.g. coding scheme, source, relation, ...) and the name that is
+                                used to refer to that entity locally. A URN map may also be accompanied by an optional description of what is being referenced
+                                and/or why. </xs:documentation>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgBuiltin:tsCaseIgnoreIA5String">
+                                <xs:attribute name="localId" type="lgBuiltin:localId" use="required"/>
+                                <xs:attribute name="urn" type="URN"/>
+                        </xs:extension>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedAssociation  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedAssociation">
+                <xs:annotation>
+                        <xs:documentation>The URN and local identifier for an association.</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.60</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedAssociationQualifier  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedAssociationQualifier">
+                <xs:annotation>
+                        <xs:documentation>The URN and local identifier for an association qualifier</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.61</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedCodingScheme  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedCodingScheme">
+                <xs:annotation>
+                        <xs:documentation> The URN and local identifier of an external coding scheme The URN portion maps to the registeredName of the
+                                referenced scheme The local name is local to the referencing object </xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.100</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedConceptStatus  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedConceptStatus">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a concept status value</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.96</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedContext  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedContext">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a usage context</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.58</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedDegreeOfFidelity  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedDegreeOfFidelity">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a degree of fidelity metric</xs:documentation>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedFormat  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedFormat">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a presentation format (usually mime type)</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.57</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedLanguage  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedLanguage">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of a spoken or written language</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.56</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedProperty  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedProperty">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of a property</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.59</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedRepresentationalForm  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedRepresentationalForm">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of a representational form (e.g. noun, eponym) </xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.101</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedPropertyLink  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedPropertyLink">
+                <xs:annotation>
+                        <xs:documentation>A lexical association between two concept propertes (e.g. abbreviationFor, accronymFor) </xs:documentation>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedPropertyQualifier  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedPropertyQualifier">
+                <xs:annotation>
+                        <xs:documentation>Attibute of the association of a property with a codedEntry</xs:documentation>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedSource  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedSource">
+                <xs:annotation>
+                        <xs:documentation>The URI and local name of an external source reference. Source references can also carry an additional compositional
+                                rule section that describes how to combine a subpart such as a page number, section name, etc. with the core URI in order to
+                                form a meaningful URL. An optional role can also be specified.</xs:documentation>
+                        <xs:appinfo>
+                                <oid>1.3.6.1.4.1.2114.108.1.6.85</oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="URNMap">
+                                <xs:attribute name="assemblyRule" type="lgBuiltin:tsCaseIgnoreIA5String">
+                                        <xs:annotation>
+                                                <xs:documentation>Rule for combining source-specific information such as page numbers, sections and the like
+                                                        with the source URL. Syntax: [ID] - names the identifier. Everythinng else is literal.
+                                                </xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="agentRole" type="lgBuiltin:tsCaseIgnoreIA5String">
+                                        <xs:annotation>
+                                                <xs:documentation>Allows further explanation of the contribution of an agent to the resource >(e.g. author vs maintainer vs distributer)</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                         </xs:extension>
+                </xs:simpleContent>
+        </xs:complexType>
+</xs:schema>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:lgCommon="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes"
+        xmlns:lgBuiltin="http://LexGrid.org/schema/2006/01/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2006/01/LexGrid/naming"
+        xmlns:ldap="http://LexGrid.org/schema/2006/01/LexGrid/ldap" xmlns="http://LexGrid.org/schema/2006/01/LexGrid/versions"
+        targetNamespace="http://LexGrid.org/schema/2006/01/LexGrid/versions" elementFormDefault="qualified">
+        <xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes" schemaLocation="commonTypes.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/naming" schemaLocation="naming.xsd"/>
+
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> versions  -->
+        <!-- ================================================= -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: entityVersion  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="entityVersion">
+                <xs:annotation>
+                        <xs:documentation>A static snapshot of the given entity.</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.21</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCommon:describable">
+                                <xs:sequence>
+                                        <xs:element minOccurs="0" name="changeDocumentation" type="lgBuiltin:tsCaseIgnoreDirectoryString">
+                                                <xs:annotation>
+                                                        <xs:documentation>User documentation about this particular change. Format is coding scheme
+                                                        specific.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element minOccurs="0" name="changeInstructions" type="lgBuiltin:tsCaseIgnoreDirectoryString">
+                                                <xs:annotation>
+                                                        <xs:documentation>Formal or semi-formal instructions on how to apply this change.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="isComplete" type="lgBuiltin:tsBoolean" use="required">
+                                        <xs:annotation>
+                                                <xs:documentation>If true, this entity represents a complete copy of the particular release. If false, it only
+                                                        carries a delta.</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="version" type="lgCommon:version" use="required">
+                                        <xs:annotation>
+                                                <xs:documentation>The unique version identifier.</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="versionOrder" type="lgCommon:entryOrder" use="required">
+                                        <xs:annotation>
+                                                <xs:documentation>The relative order of this version within the surrounding container.</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="versionDate" type="lgBuiltin:tsTimestamp">
+                                        <xs:annotation>
+                                                <xs:documentation>The end date for which this version is operative (considered commited).</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="effectiveDate" type="lgBuiltin:tsTimestamp" use="optional">
+                                        <xs:annotation>
+                                                <xs:documentation>The start date for which this version is operative (considered active).</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="releaseURN" type="lgNaming:URN">
+                                        <xs:annotation>
+                                                <xs:documentation>URN of the release from which this version is drawn.</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                        </xs:extension>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: history  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="history">
+                <xs:annotation>
+                        <xs:documentation>A directory of system releases within a service.</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.82</ldap:oid>
+                                <rdn>dc</rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                        <xs:element maxOccurs="unbounded" ref="systemRelease">
+                                <xs:annotation>
+                                        <xs:documentation>List of individual releases.</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                </xs:sequence>
+                <xs:attribute fixed="history" name="dc" type="lgCommon:dc" use="required">
+                        <xs:annotation>
+                                <xs:documentation>The context identifier for this directory.</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+        </xs:complexType>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: referenceSet  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="referenceSet">
+                <xs:annotation>
+                        <xs:documentation>A list of coding scheme versions and / or value domain versions.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="codingSchemeReference" type="lgCommon:versionReference"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="valueDomainReference" type="lgCommon:versionReference"/>
+                </xs:sequence>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: systemRelease  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:element name="systemRelease">
+                <xs:annotation>
+                        <xs:documentation>A snapshot of one or more coding schemes or value sets at a point in time.</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.25</ldap:oid>
+                                <rdn>releaseId</rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                        <xs:complexContent>
+                                <xs:extension base="lgCommon:describable">
+                                        <xs:sequence>
+                                                <xs:element name="releaseDefines" type="referenceSet">
+                                                        <xs:annotation>
+                                                                <xs:documentation>The names, identifiers and versions of the code systems and value domains
+                                                                        defined by this release.</xs:documentation>
+                                                        </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="releaseContains" type="referenceSet">
+                                                        <xs:annotation>
+                                                                <xs:documentation>The names, identifiers and versions of the code systems copied into but not
+                                                                        defined in this release.</xs:documentation>
+                                                        </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="releaseReferences" type="referenceSet">
+                                                        <xs:annotation>
+                                                                <xs:documentation>The names, identifiers and versions of the code systems and value domains
+                                                                        referenced this release.</xs:documentation>
+                                                        </xs:annotation>
+                                                </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="releaseId" type="lgNaming:URN" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>The globally unique name of a system release.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseAgency" type="lgNaming:URN" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>Agency responsible for a release.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseURN" type="lgNaming:URN" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>The URN of a system release.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseDate" type="lgBuiltin:tsTimestamp" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>The date time of a release.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="basedOnRelease" type="lgNaming:URN">
+                                                <xs:annotation>
+                                                        <xs:documentation>Release to which this set of changes was applied to yield the containing release.</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                </xs:extension>
+                        </xs:complexContent>
+                </xs:complexType>
+        </xs:element>
+</xs:schema>

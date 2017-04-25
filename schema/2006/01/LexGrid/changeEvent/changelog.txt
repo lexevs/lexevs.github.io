@@ -1,0 +1,27 @@
+LexGrid Vocabulary Revision Schema Changelog
+************************************
+* Changes committed on 02/12/2007  *
+* Schema Version        2006/01    *
+************************************
+* Updated vocabulary revision model to support generic properties for value domain entries.
+
+* Additions to model:
+
+* addPropertyToValueDomainType.property
+* addPropertyToValueDomainType.language
+* addPropertyToValueDomainType.presentationFormat
+* addPropertyToValueDomainType.source
+* addPropertyToValueDomainType.usageContext
+* addPropertyToValueDomainType.propertyQualifier
+* addPropertyToValueDomainType.text
+* addPropertyToValueDomainEntryType.property
+* addPropertyToValueDomainEntryType.language
+* addPropertyToValueDomainEntryType.presentationFormat
+* addPropertyToValueDomainEntryType.source
+* addPropertyToValueDomainEntryType.usageContext
+* addPropertyToValueDomainEntryType.propertyQualifier
+* addPropertyToValueDomainEntryType.text
+
+
+************************************************************************
+Changes committed before this weren't documented in this file.

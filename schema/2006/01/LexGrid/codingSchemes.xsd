@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Thomas M Johnson (Mayo Foundation) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:lgCommon="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes" xmlns:lgBuiltin="http://LexGrid.org/schema/2006/01/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2006/01/LexGrid/naming" xmlns:lgCon="http://LexGrid.org/schema/2006/01/LexGrid/concepts" xmlns:lgVer="http://LexGrid.org/schema/2006/01/LexGrid/versions" xmlns:lgRel="http://LexGrid.org/schema/2006/01/LexGrid/relations" xmlns:ldap="http://LexGrid.org/schema/2006/01/LexGrid/ldap" xmlns="http://LexGrid.org/schema/2006/01/LexGrid/codingSchemes" targetNamespace="http://LexGrid.org/schema/2006/01/LexGrid/codingSchemes" elementFormDefault="qualified">
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes" schemaLocation="commonTypes.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/concepts" schemaLocation="concepts.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/relations" schemaLocation="relations.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/versions" schemaLocation="versions.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/naming" schemaLocation="naming.xsd"/>
+	<!-- ================================================= -->
+	<!-- Package: <<XSDschema>> codingSchemes  -->
+	<!-- ================================================= -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: codingSchemes  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="codingSchemes">
+		<xs:annotation>
+			<xs:documentation>A directory of coding schemes contained in the service.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.81</ldap:oid>
+				<ldap:rdn>dc</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="codingScheme" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>A list of individual coding schemes.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="codingSchemes">
+				<xs:annotation>
+					<xs:documentation>The context identifier for this directory.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: codingScheme  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="codingScheme">
+		<xs:annotation>
+			<xs:documentation>Describes and/or defines a collection of concept codes.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.2</ldap:oid>
+				<ldap:rdn>codingScheme</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="lgCommon:versionableAndDescribable">
+					<xs:sequence>
+						<xs:element name="localName" type="lgBuiltin:tsCaseIgnoreIA5String" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Name that can be used to reference the coding scheme within the context of the
+                                                                        service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="source" type="lgCommon:source" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The source or orginator of the coding scheme.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="copyright" type="lgCommon:text" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Copyright notice</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="mappings" type="mappings">
+							<xs:annotation>
+								<xs:documentation>Mappings from local names to URN.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="properties" type="lgCommon:properties" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Additional tags and associated values that further describe or identify the coding scheme.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="concepts" type="lgCon:concepts" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The set of coded concepts represented by the coding scheme.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="relations" type="lgRel:relations" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The set of relations (collections of associations) represented by the coding scheme.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="versions" type="versions" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Version information for the coding sheme.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="codingScheme" type="lgBuiltin:localId" use="required">
+						<xs:annotation>
+							<xs:documentation>A unique identifier for the coding scheme within a particular context; usually a mnemonic.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="formalName" type="lgBuiltin:tsCaseIgnoreIA5String" use="required">
+						<xs:annotation>
+							<xs:documentation>Official or published name of the coding scheme</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="registeredName" type="lgCommon:registeredName" use="required">
+						<xs:annotation>
+							<xs:documentation>The official coding scheme URN</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="defaultLanguage" type="lgCommon:defaultLanguage" use="required">
+						<xs:annotation>
+							<xs:documentation>Local name of the language to use if not otherwise specified. Must be in
+                                                                supportedLanguage</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="representsVersion" type="lgCommon:version" use="required">
+						<xs:annotation>
+							<xs:documentation>The coding scheme version currently represented by this entity</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="isNative" type="lgBuiltin:tsBoolean">
+						<xs:annotation>
+							<xs:documentation>TRUE means that this is the "native" coding scheme for this service (optional -
+                                                                default: FALSE)</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="approxNumConcepts" type="lgBuiltin:tsInteger">
+						<xs:annotation>
+							<xs:documentation>Hint for the system about the approximate number of concepts in the scheme
+                                                        (optional)</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: codingSchemeVersion  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="codingSchemeVersion">
+		<xs:annotation>
+			<xs:documentation>A static snapshot of a coding scheme at a point in time. May be either a complete</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.3</ldap:oid>
+				<ldap:rdn>versionId</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="lgVer:entityVersion">
+				<xs:sequence>
+					<xs:element name="concepts" type="lgCon:concepts" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Set of concepts in this version (or changed concepts if delta)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="relations" type="lgRel:relations" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Set of relations in this version (or changed relations if delta)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: versions  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="versions">
+		<xs:annotation>
+			<xs:documentation>A list of past versions of the coding scheme</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.84</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="version" type="codingSchemeVersion" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Complete or partial version</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="versions">
+			<xs:annotation>
+				<xs:documentation>Node identifier </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: mappings  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="mappings">
+		<xs:annotation>
+			<xs:documentation>A collection of mappings</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="supportedLanguage" type="lgNaming:supportedLanguage" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The URN and local name of a language supported by the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedFormat" type="lgNaming:supportedFormat" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A format (MIME code) supported by the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedProperty" type="lgNaming:supportedProperty" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A property supported by the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedCodingScheme" type="lgNaming:supportedCodingScheme" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Any coding scheme that is referenced in the contents, inclulding the containing scheme itself. Rule:
+                                                There must be a supportedCodingScheme entry for each local name in in the codingScheme object, with the URN set
+                                                to the coding scheme registered name. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedSource" type="lgNaming:supportedSource" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Information sources in the scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedAssociation" type="lgNaming:supportedAssociation" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An association(relation) supported by the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedContext" type="lgNaming:supportedContext" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A list of contexts used within the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedAssociationQualifier" type="lgNaming:supportedAssociationQualifier" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>an association qualifier supported by the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedConceptStatus" type="lgNaming:supportedConceptStatus" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A concept status value supported by the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedRepresentationalForm" type="lgNaming:supportedRepresentationalForm" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Representational form (e.g noun, adjective, eponym) used in the coding scheme</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedPropertyLink" type="lgNaming:supportedPropertyLink" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Link between two properties (e.g. acronymFor, abbreviationFor, spellingVariantOf</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedDegreeOfFidelity" type="lgNaming:supportedDegreeOfFidelity" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Identifier for fidelity qualifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedPropertyQualifier" type="lgNaming:supportedPropertyQualifier" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Identifier for generic property qualifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportedHierarchy" type="lgNaming:supportedHierarchy" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Identifier for association for hierarchical navigation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="mappings">
+			<xs:annotation>
+				<xs:documentation>Node identifier</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>
