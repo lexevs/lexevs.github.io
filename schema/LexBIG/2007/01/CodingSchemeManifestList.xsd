@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns="http://LexGrid.org/schema/2006/01/LexOnt/CodingSchemeManifestList" 
+		xmlns:lgBuiltin="http://LexGrid.org/schema/2006/01/LexGrid/builtins" 
+		xmlns:lgCS="http://LexGrid.org/schema/2006/01/LexGrid/codingSchemes" 
+		xmlns:lgCommon="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes" 
+		xmlns:lgRel="http://LexGrid.org/schema/2006/01/LexGrid/relations" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		elementFormDefault="qualified" 
+		targetNamespace="http://LexGrid.org/schema/2006/01/LexOnt/CodingSchemeManifestList">
+	
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/relations" 
+		schemaLocation="http://LexGrid.org/schema/2006/01/LexGrid/relations.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/codingSchemes" 
+		schemaLocation="http://LexGrid.org/schema/2006/01/LexGrid/codingSchemes.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/builtins" 
+		schemaLocation="http://LexGrid.org/schema/2006/01/LexGrid/builtins.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes" 
+		schemaLocation="http://LexGrid.org/schema/2006/01/LexGrid/commonTypes.xsd"/>
+	
+	<xs:element name="CodingSchemeManifestList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="entry" type="codingSchemeManifest"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="codingSchemeManifest">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="codingScheme" type="csmfCodingSchemeName">
+				<xs:annotation>
+					<xs:documentation>An identifier for the coding scheme.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="entityDescription" type="csmfEntityDescription">
+				<xs:annotation>
+					<xs:documentation>Coding scheme description text.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="formalName" type="csmfFormalName">
+				<xs:annotation>
+					<xs:documentation>Official or published name of the coding scheme.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="registeredName" type="csmfRegisteredName">
+				<xs:annotation>
+					<xs:documentation>Registered name of the coding scheme.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="defaultLanguage" type="csmfDefaultLanguage">
+				<xs:annotation>
+					<xs:documentation>Local name of the language to use if not otherwise specified.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="representsVersion" type="csmfVersion">
+				<xs:annotation>
+					<xs:documentation>The coding scheme version currently represented by this entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="localName" type="csmfLocalName">
+				<xs:annotation>
+					<xs:documentation>Name that can be used to reference the coding scheme within 
+						the context of the service.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="source" type="csmfSource">
+				<xs:annotation>
+					<xs:documentation>The source or orginator of the coding scheme.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="copyright" type="csmfText">
+				<xs:annotation>
+					<xs:documentation>Copyright notice text.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mappings" type="csmfMappings"/>
+
+			<xs:element name="associationDefinitions" type="csmfAssociationDefinition"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="lgCommon:registeredName" use="required">
+			<xs:annotation>
+				<xs:documentation>The key for the coding scheme manifest values. Normally this identifier is coding scheme's namespace.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="csmfCodingSchemeName">
+		<xs:annotation>
+			<xs:documentation>A name identifier based on lgBuiltin:localId.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="lgBuiltin:localId">
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+		
+	<xs:complexType name="csmfFormalName">
+		<xs:annotation>
+			<xs:documentation>A name identifier based on lgBuiltin:tsCaseIgnoreIA5String.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="lgBuiltin:tsCaseIgnoreIA5String">
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="csmfRegisteredName">
+		<xs:annotation>
+			<xs:documentation>A name identifier based on lgCommon:registeredName.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="lgCommon:registeredName">
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="csmfDefaultLanguage">
+		<xs:annotation>
+			<xs:documentation>Based on lgCommon:defaultLanguage.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent >
+			<xs:extension base="lgCommon:defaultLanguage">
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+		
+	<xs:complexType name="csmfVersion">
+		<xs:annotation>
+			<xs:documentation>Based on lgCommon:version.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent >
+			<xs:extension base="lgCommon:version">
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="csmfEntityDescription">
+		<xs:annotation>
+			<xs:documentation>Based on lgCommon:entityDescription.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent >
+			<xs:extension base="lgCommon:entityDescription">
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="csmfText">
+		<xs:annotation>
+			<xs:documentation>Based on lgCommon:text.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent >
+			<xs:extension base="lgCommon:text" >
+				<xs:attribute name="toOverride" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is 'true', the value provided in the source file will be replaced with this one. 
+							Otherwise, this value is treated as a default value and used only if the value is not provided in the source file.
+							The default value of this is set to 'true'.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="csmfLocalName">
+		<xs:annotation>
+			<xs:documentation>A name identifier based on lgBuiltin:tsCaseIgnoreIA5String.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="lgBuiltin:tsCaseIgnoreIA5String">
+				<xs:attribute name="toAdd" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is set to ‘true’, this value will be added to the list of values (if not there already). 
+							Otherwise, this value is treated as the default value and used only if no other value is provided in the source file.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="csmfSource">
+		<xs:annotation>
+			<xs:documentation>Based on lgCommon:source.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent >
+			<xs:extension base="lgCommon:source">
+				<xs:attribute name="toAdd" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is set to ‘true’, this value will be added to the list of values (if not there already). 
+							Otherwise, this value is treated as the default value and used only if no other value is provided in the source file.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="csmfMappings">
+		<xs:annotation>
+			<xs:documentation>Based on lgCS:mappings.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent >
+			<xs:extension base="lgCS:mappings" >
+				<xs:attribute name="toAdd" type="lgBuiltin:tsBoolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>If this flag is set to ‘true’, this value will be added to the list of values (if not there already). 
+							Otherwise, this value is treated as the default value and used only if no other value is provided in the source file.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="csmfAssociationDefinition">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="assoc" type="lgRel:association"/>
+		</xs:sequence>
+		<xs:attribute name="toAdd" type="lgBuiltin:tsBoolean" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>If this flag is set to ‘true’, this value will be added to the list of values (if not there already). 
+					Otherwise, this value is treated as the default value and used only if no other value is provided in the source file.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>
