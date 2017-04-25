@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema targetNamespace="http://informatics.mayo.edu/LexBIG/2005/01/TerminologyServiceMetadata" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:lbTsmd="http://informatics.mayo.edu/LexBIG/2005/01/TerminologyServiceMetadata" xmlns:lbColl="http://informatics.mayo.edu/LexBIG/2005/01/Collections" xmlns:lbCore="http://informatics.mayo.edu/LexBIG/2005/01/Core" xmlns:lgBuiltin="http://LexGrid.org/schema/2005/01/LexGrid/builtins" xmlns:lgCommon="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" elementFormDefault="qualified">
+	<!-- ================================================= -->
+	<!-- Package: <<XSDschema>> TerminologyServiceMetadata -->
+	<!-- ================================================= -->
+	<xs:import namespace="http://informatics.mayo.edu/LexBIG/2005/01/Core" schemaLocation="Core.xsd"/>
+	<xs:import namespace="http://informatics.mayo.edu/LexBIG/2005/01/Collections" schemaLocation="Collections.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/builtins" schemaLocation="http://LexGrid.org/schema/2005/01/LexGrid/builtins.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" schemaLocation="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/versions" schemaLocation="http://LexGrid.org/schema/2005/01/LexGrid/versions.xsd"/>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: TerminologyServiceInfoType				   -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="TerminologyServiceInfoType" type="lbTsmd:TerminologyServiceInfoType"/>
+	<xs:complexType name="TerminologyServiceInfoType">
+		<xs:complexContent>
+			<xs:extension base="lbTsmd:ResearchCenterInfoType">
+				<xs:sequence>
+					<xs:element name="codingSchemeURN" type="lgBuiltin:tsURN">
+						<xs:annotation>
+							<xs:documentation>Unique coding scheme identifier </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="representsVersion" type="lgCommon:version" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Version identifier represented by this coding scheme</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="codingScheme" type="lgBuiltin:localName">
+						<xs:annotation>
+							<xs:documentation>Internal identifier used to semi-uniquely identify this coding scheme</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="formalName" type="lgBuiltin:tsCaseIgnoreIA5String">
+						<xs:annotation>
+							<xs:documentation>Formal or official name of the coding scheme.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lastUpdateTime" type="lgBuiltin:tsTimestamp">
+						<xs:annotation>
+							<xs:documentation>Date and time that the coding scheme was last updated in the service</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="versionStatus" type="lbCore:CodingSchemeVersionStatus">
+						<xs:annotation>
+							<xs:documentation>Current status of the coding scheme</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="deactivateDate" type="lgBuiltin:tsTimestamp" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date that this version of the coding scheme was (or will be) deactivated</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: ResearchCenterInfoType				   -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="ResearchCenterInfoType" type="lbTsmd:ResearchCenterInfoType"/>
+	<xs:complexType name="ResearchCenterInfoType">
+		<xs:sequence>
+			<xs:element name="researchCenterBioDataType" type="xs:string"/>
+			<xs:element name="researchCenterName" type="xs:string"/>
+			<xs:element name="researchCenterType" type="xs:string"/>
+			<xs:element name="researchCenterAddress" type="xs:string"/>
+			<xs:element name="researchCenterPhone" type="xs:string"/>
+			<xs:element name="researchCenterFax" type="xs:string"/>
+			<xs:element name="researchCenterPOCName" type="xs:string"/>
+			<xs:element name="researchCenterDescription" type="xs:string"/>
+			<xs:element name="researchCenterComments" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: TerminologyServiceMetadata				   -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="TerminologyServiceMetadata" type="lbTsmd:TerminologyServiceMetadata"/>
+	<xs:complexType name="TerminologyServiceMetadata">
+		<xs:sequence>
+			<xs:element ref="lbTsmd:TerminologyServiceInfoType"/>
+			<xs:element ref="lbColl:CodingSchemeRenderingList"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+	
