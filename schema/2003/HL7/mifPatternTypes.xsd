@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>
+********************************************************************************
+Author: Initial development by Lloyd McKenzie, Dec. 2002
+(c) 2002, 2003 by HL7 Inc.
+
+Purpose:
+	Defines the various simple type patterns used by mif elements.
+	This file may be overridden to 'bypass' some of the enforced rules.
+
+Outstanding questions:
+  - Are the lengths and types of various attributes and elements appropriate (particularly markup)?
+********************************************************************************
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="nonEmptyStringType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lowerCamelCaseType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:pattern value="[a-z][a-z0-9]*([A-Z][a-z0-9]*)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="upperCamelCaseType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:pattern value="([A-Z][a-z0-9_]*)+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Simple types used in defining various attributes -->
+	<xs:simpleType name="uuidType">
+		<xs:restriction base="xs:string">
+			<xs:length value="38"/>
+			<xs:pattern value="\{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="oidType">
+		<xs:restriction base="xs:string">
+			<xs:length value="255"/>
+			<xs:pattern value="[1-9][0-9]+(\.[1-9][0-9]+)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="urlType">
+		<xs:restriction base="xs:anyURI">
+			<xs:maxLength value="255"/>
+			<xs:pattern value="http://.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="localFileReferenceType">
+		<xs:restriction base="xs:anyURI">
+			<xs:maxLength value="255"/>
+			<xs:pattern value="(file://)?([A-Za-z0-9_\-\.]+/)*[A-Za-z0-9_\-\.]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="prefixedUpperCamelCaseType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:maxLength value="50"/>
+			<xs:pattern value="[A-Z]+_([A-Z][a-z0-9_]*)+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="allClassNameType">
+		<xs:union memberTypes="upperCamelCaseType prefixedUpperCamelCaseType"/>
+	</xs:simpleType>
+	<xs:simpleType name="basicFormalNameType">
+		<xs:restriction base="nonEmptyStringType">
+			<xs:maxLength value="120"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="formalProperNameType">
+		<xs:restriction base="upperCamelCaseType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="formalPropertyNameType">
+		<xs:restriction base="lowerCamelCaseType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="enumeratedCodeType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="shortDescriptiveNameType">
+		<xs:restriction base="nonEmptyStringType">
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="longDescriptiveNameType">
+		<xs:restriction base="nonEmptyStringType">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="domainNameType">
+		<xs:union memberTypes="basicFormalNameType">
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:maxLength value="50"/>
+					<xs:pattern value="(x_)?([A-Z][a-z0-9_]*)+"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="versionType">
+		<xs:restriction base="nonEmptyStringType">
+			<xs:maxLength value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="basicIdType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="artifactIdType">
+		<xs:annotation>
+			<xs:appinfo>
+				<sch:pattern name="Validate artifact identifier types">
+					<sch:rule context="communicationProtocol/@protocolId|communicationProtocolRef/@id">
+						<sch:report test="substring(.,6,2)!='CP'">
+							ERROR: Communication protocol artifact identifiers must use an artifact prefix of "CP".</sch:report>
+					</sch:rule>
+					<sch:rule context="applicationRole/@id|applicationRoleRef/@artifactId">
+						<sch:report test="substring(.,6,2)!='AR'">
+							ERROR: Application role artifact identifiers must use an artifact prefix of "AR".</sch:report>
+					</sch:rule>
+					<sch:rule context="document/@id">
+						<sch:report test="not(contains(';BB;CF;NC;VG;', concat(';', substring(.,6,2), ';')))">
+							ERROR: Document artifact identifiers must use an artifact prefix of "BB", "CF", "NC" or "VG".</sch:report>
+					</sch:rule>
+					<sch:rule context="datatypeModel/@modelId|datatypeModelRef/@id">
+						<sch:report test="substring(.,6,2)!='DT'">
+							ERROR: Datatype model artifact identifiers must use an artifact prefix of "DT".</sch:report>
+					</sch:rule>
+					<sch:rule context="dynamicModel/@modelId|dynamicModelRef/@id">
+						<sch:report test="substring(.,6,2)!='DY'">
+							ERROR: Dynamic model artifact identifiers must use an artifact prefix of "DY".</sch:report>
+					</sch:rule>
+					<sch:rule context="example/@exampleId">
+						<sch:report test="substring(.,6,2)!='EX'">
+							ERROR: Example artifact identifiers must use an artifact prefix of "EX".</sch:report>
+					</sch:rule>
+					<sch:rule context="glossary/@glossaryId|glossaryRef/@id|glossaryTermRef/@glossaryId">
+						<sch:report test="substring(.,6,2)!='GL'">
+							ERROR: Glossary artifact identifiers must use an artifact prefix of "GL".</sch:report>
+					</sch:rule>
+					<sch:rule context="interaction/@id|interactionRef/@artifactId|interactionReference/@interactionId|triggerEvent/@invokingInteractionId">
+						<sch:report test="substring(.,6,2)!='IN'">
+							ERROR: Interaction artifact identifiers must use an artifact prefix of "IN".</sch:report>
+					</sch:rule>
+					<sch:rule context="implementationTechnologySpecification/@itsId|itsRef/@id|example/@forITSId">
+						<sch:report test="substring(.,6,2)!='IT'">
+							ERROR: Implementation technology specification artifact identifiers must use an artifact prefix of "IT".</sch:report>
+					</sch:rule>
+					<sch:rule context="narrative/@id">
+						<sch:report test="substring(.,6,2)!='SN'">
+							ERROR: Storyboard narrative artifact identifiers must use an artifact prefix of "SN".</sch:report>
+					</sch:rule>
+					<sch:rule context="package/@packageId">
+						<sch:report test="not(contains(';PB;RP;', concat(';', substring(.,6,2), ';')))">
+							ERROR: Package artifact identifiers must use an artifact prefix of "PB" or "RP".</sch:report>
+					</sch:rule>
+					<sch:rule context="staticModel/@modelId|staticModelRef/@modelId|stateTransitionRef/@staticModelId|stateRef/@staticModelId|
+											classTypeRef/@typeId|derivedFrom/@modelId|subjectAreaRef/@modelId|classRef/@modelId|attributeRef/@modelId|
+											associationEndRef/@modelId">
+						<sch:report test="not(contains(';RI;DM;HD;MT;RM;', concat(';', substring(.,6,2), ';')))">
+							ERROR: Static model artifact identifiers must use an artifact prefix of "RI", "DM", "HD", MT" or "RM".</sch:report>
+					</sch:rule>
+					<sch:rule context="storyboard/@id|storyboard/@referencedStoryboardIds|storyboardRef/@artifactId">
+						<sch:report test="substring(.,6,2)!='ST'">
+							ERROR: Storyboard artifact identifiers must use an artifact prefix of "ST".</sch:report>
+						<!-- Note: this doesn't check subsequent storyboards -->
+					</sch:rule>
+					<sch:rule context="storyboardModel/@modelId|storyboardModelRef/@id">
+						<sch:report test="substring(.,6,2)!='SM'">
+							ERROR: Storyboard model artifact identifiers must use an artifact prefix of "SM".</sch:report>
+					</sch:rule>
+					<sch:rule context="triggerEvent/@id|triggerEventRef/@artifactId">
+						<sch:report test="substring(.,6,2)!='TE'">
+							ERROR: Trigger event artifact identifiers must use an artifact prefix of "TE".</sch:report>
+					</sch:rule>
+					<sch:rule context="vocabModel/@modelId|vocabularyModelRef/@id|vocabularyDomainRef/@vocabModelId|codeSystemRef/@vocabModelId|
+											vocabularyCodeRef/@vocabModelId|valueSetRef/@vocabModelId">
+						<sch:report test="substring(.,6,2)!='VO'">
+							ERROR: Vocabulary artifact identifiers must use an artifact prefix of "VO".</sch:report>
+					</sch:rule>
+				</sch:pattern>
+				<sch:pattern name="Validate artifact identifier prefixes">
+					<sch:rule context="communicationProtocol/@protocolId|communicationProtocolRef/@id|applicationRole/@id|
+										applicationRoleRef/@artifactId|document/@id|datatypeModel/@modelId|datatypeModelRef/@id|dynamicModel/@modelId|
+										dynamicModelRef/@id|example/@exampleId|glossary/@glossaryId|glossaryRef/@id|glossaryTermRef/@glossaryId|
+										interaction/@id|interactionRef/@artifactId|interactionReference/@interactionId|
+										triggerEvent/@invokingInteractionId|implementationTechnologySpecification/@itsId|itsRef/@id|example/@forITSId|
+										narrative/@id|package/@packageId|staticModel/@modelId|staticModelRef/@modelId|stateTransitionRef/@staticModelId|
+										stateRef/@staticModelId|classTypeRef/@typeId|derivedFrom/@modelId|subjectAreaRef/@modelId|classRef/@modelId|
+										attributeRef/@modelId|associationEndRef/@modelId|storyboard/@id|storyboard/@referencedStoryboardIds|
+										storyboardRef/@artifactId|storyboardModel/@modelId|storyboardModelRef/@id|triggerEvent/@id|
+										triggerEventRef/@artifactId|vocabModel/@modelId|vocabularyModelRef/@id|vocabularyDomainRef/@vocabModelId|
+										codeSystemRef/@vocabModelId|vocabularyCodeRef/@vocabModelId|valueSetRef/@vocabModelId">
+						<sch:report test="not(contains(';COCT;COMT;MCCI;MCAI;QUQI;MFMI;FIAB;FICR;QUCR;PRPA;QUPA;MFPA;PRPM;MFPM;PRSC;POLB;RCMR;PORX;PORR;PORI;PORT;', concat(';', substring(.,1,4), ';')))">
+							WARNING: Artifact identifier does not have a recognized domain/sub-domain prefix.</sch:report>
+					</sch:rule>
+				</sch:pattern>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:pattern value="([A-Z]{4}_[A-Z]{2}\d{6})"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="datatypeIdType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:pattern value="(dt-[A-Z]+(&lt;[A-Z]+(,[A-Z])*&gt;)?)"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
