@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://LexGrid.org/schema/2008/01/LexGrid/commonTypes" xmlns:ldap="http://LexGrid.org/schema/2008/01/LexGrid/ldap" xmlns:lgBuiltin="http://LexGrid.org/schema/2008/01/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2008/01/LexGrid/naming" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://LexGrid.org/schema/2008/01/LexGrid/commonTypes">
+
+	<xs:import namespace="http://LexGrid.org/schema/2008/01/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2008/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2008/01/LexGrid/naming" schemaLocation="naming.xsd"/>
+
+	<!-- ================================================= -->
+	<!-- Package: <<XSDschema>> commonTypes  -->
+	<!-- ================================================= -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> dc  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="dc">
+		<xs:annotation>
+			<xs:documentation> RFC1274/2247: domain component.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>0.9.2342.19200300.100.1.25</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsCaseIgnoreIA5String"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> defaultCodingScheme  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="defaultCodingScheme">
+		<xs:annotation>
+			<xs:documentation>The local identifier of a default coding scheme.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.39</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:localId"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> context  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="context">
+		<xs:annotation>
+			<xs:documentation>A context that controls when, where or how an attribute is used.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:localId"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> propertyQualifierId  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="propertyQualifierId">
+		<xs:annotation>
+			<xs:documentation>A class of qualifier that further annotates the assignment of a property.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:localId"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> language  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="language">
+		<xs:annotation>
+			<xs:documentation>A local name for a spoken or written language.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.10</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:localId"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> defaultLanguage  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="defaultLanguage">
+		<xs:annotation>
+			<xs:documentation>The language to use unless otherwise specified.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.11</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="language"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> entryOrder  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="entryOrder">
+		<xs:annotation>
+			<xs:documentation> Positive integer that defines a list order.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.27</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsInteger"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> id  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="id">
+		<xs:annotation>
+			<xs:documentation>An arbitrary id for things that arent otherwise nameable.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.102</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsCaseIgnoreIA5String"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> registeredName  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="registeredName">
+		<xs:annotation>
+			<xs:documentation>The URN of a coding scheme or value set.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.5</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsURN"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> version  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="version">
+		<xs:annotation>
+			<xs:documentation>A version identifier.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.52</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsCaseIgnoreIA5String">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> entityId  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="entityId">
+		<xs:annotation>
+			<xs:documentation>The unique Id for a entity defined in a coding scheme.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.6</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsCaseIgnoreIA5String">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: source  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="source">
+		<xs:annotation>
+			<xs:documentation>A local source identifier.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.8</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="lgBuiltin:localId">
+				<xs:attribute name="subRef" type="lgBuiltin:tsCaseIgnoreIA5String" use="optional">
+					<xs:annotation>
+						<xs:documentation>The page, subheading, id or other localized information within the source itself. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="role" type="lgBuiltin:tsCaseIgnoreIA5String" use="optional">
+					<xs:annotation>
+						<xs:documentation>Optional identifies the purpose and contribution of this source (e.g. author, distributor).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDsimpleType>> propertyId  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="propertyId">
+		<xs:annotation>
+			<xs:documentation>The unique identifier of a property.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.90</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="lgBuiltin:tsCaseIgnoreIA5String"/>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: codedContext  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="codedContext">
+		<xs:annotation>
+			<xs:documentation>Provides the ability to bind usage context to coded information.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="context">
+				<xs:attribute name="entityId" type="entityId" use="optional">
+					<xs:annotation>
+						<xs:documentation>The optional code associated with the usage context.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="codingScheme" type="lgBuiltin:localId" use="optional">
+					<xs:annotation>
+						<xs:documentation>The coding scheme from which conceptCode is drawn. Must reference a supportedCodingScheme.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: describable  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="describable">
+		<xs:annotation>
+			<xs:documentation>An entity that can be defined or described.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.5.1.4.1.2114.108.1.7.1</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="entityDescription" type="entityDescription">
+				<xs:annotation>
+					<xs:documentation>A textual description of the entity in the default language</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: versionable  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="versionable">
+		<xs:annotation>
+			<xs:documentation>An entity which can be introduced or removed at a specific version.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.5.1.4.1.2114.108.1.7.2</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:attribute name="firstRelease" type="lgBuiltin:tsBoolean">
+			<xs:annotation>
+				<xs:documentation>TRUE means that entity was introduced in the current release</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="modifiedInRelease" type="lgBuiltin:tsBoolean">
+			<xs:annotation>
+				<xs:documentation>TRUE means that entity isn't new but was modified since the last release.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="deprecated" type="lgBuiltin:tsBoolean">
+			<xs:annotation>
+				<xs:documentation>TRUE means that this entity is scheduled to be retired or removed at some future release</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: versionableAndDescribable  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="versionableAndDescribable">
+		<xs:annotation>
+			<xs:documentation>Any entity that can be introduced, modified or removed and/or described.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.5.1.4.1.2114.108.1.7.26</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="versionable">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="entityDescription" type="entityDescription">
+						<xs:annotation>
+							<xs:documentation>A textual description of the entity in the default language</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: versionReference  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="versionReference">
+		<xs:annotation>
+			<xs:documentation>A reference to a coding scheme, value set or other entity that includes the version or reference date of the entity being referenced.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="lgNaming:URNMap">
+				<xs:attribute name="version" type="version" use="required">
+					<xs:annotation>
+						<xs:documentation>The specific version of the entity. Use the official version identifier if one is known. If not, use a date that can
+							fix the entity in time. (e.g. as of 12/1999)</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: propertyQualifier                          -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType mixed="true" name="propertyQualifier">
+		<xs:annotation>
+			<xs:documentation>Additional information about the property and/or its association with the codedEntry.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+		</xs:sequence>
+		<xs:attribute name="propertyQualifierId" type="propertyQualifierId" use="required">
+			<xs:annotation>
+				<xs:documentation>The local name of the qualifier type. Must be in supportedPropertyQualifier</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: property  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="property">
+		<xs:annotation>
+			<xs:documentation>A description, definition, annotation or other attribute that serves to further define or identify an entity.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.24</ldap:oid>
+				<ldap:rdn>propertyId</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="source" type="source">
+				<xs:annotation>
+					<xs:documentation>The source(s) of this property. Must be in supportedSource.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="usageContext" type="context">
+				<xs:annotation>
+					<xs:documentation>The context(s) in which this property applies. Must be in supportedContext.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="propertyQualifier" type="propertyQualifier">
+				<xs:annotation>
+					<xs:documentation>Qualifiers that describe property usage, source, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="text" type="text">
+				<xs:annotation>
+					<xs:documentation>Actual property text.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="propertyName" type="lgBuiltin:localId" use="required">
+			<xs:annotation>
+				<xs:documentation>The local name or tag of the property. Must be in supportedProperty</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="propertyId" type="propertyId" use="required">
+			<xs:annotation>
+				<xs:documentation>The unique name of the property within the context of the coded entry</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="language" type="language">
+			<xs:annotation>
+				<xs:documentation>The written or spoken language of the property. Must be in supportedLanguage. Default- defaultLanguage for coding
+				Scheme</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="format" type="lgBuiltin:localId">
+			<xs:annotation>
+				<xs:documentation>The data format or mime type of the property. Must be in supportedFormat. Default: string</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: properties  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="properties">
+		<xs:annotation>
+			<xs:documentation>A directory of otherwise 'unclassified' properties.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="property">
+				<xs:annotation>
+					<xs:documentation>A list of tag/value pairs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute fixed="properties" name="dc" type="dc" use="required">
+			<xs:annotation>
+				<xs:documentation>The context identifier for this directory.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDcomplexTypeType>> entityDescription  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType mixed="true" name="entityDescription">
+		<xs:annotation>
+			<xs:documentation> The textual description of an entity.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.21</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: <<XSDcomplexType>> text  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType mixed="true" name="text">
+		<xs:annotation>
+			<xs:documentation>Text associated with an annotation, comment, etc.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.6.20</ldap:oid>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: Entity  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="Entity">
+		<xs:annotation>
+			<xs:documentation>An entity within a coding scheme or a coding scheme version.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.5.1.4.1.2114.108.1.7.13.??</ldap:oid>
+				<ldap:rdn>Entity</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="versionableAndDescribable">				
+				<xs:attribute name="id" type="entityId" use="required">
+					<xs:annotation>
+						<xs:documentation>Unique entity Id within coding system. For a concept and Instance this would be the code </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="codingSchemeId" type="lgBuiltin:localId">
+					<xs:annotation>
+						<xs:documentation> The localId of the coding scheme to which the entity belongs. Must be in supportedCodingScheme with import flag set to true.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>						
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: EntityTypes						   			-->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:simpleType name="EntityTypes">
+		<xs:restriction base="xs:string">
+			<xs:annotation>
+				<xs:documentation>An enumeration of the possible entity types</xs:documentation>
+			</xs:annotation>
+			<xs:enumeration value="concept">
+				<xs:annotation>
+					<xs:documentation>The entity is a concept</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="instance">
+				<xs:annotation>
+					<xs:documentation>The entity is an instance. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="association">
+				<xs:annotation>
+					<xs:documentation>The entity is an association. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: EntityTypes						   			-->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="EntityTypes" type="EntityTypes"/>	
+	
+</xs:schema>

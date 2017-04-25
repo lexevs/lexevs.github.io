@@ -1,0 +1,49 @@
+LexGrid Vocabulary Revision Schema Changelog
+************************************
+* Changes committed on 04/09/2008  *
+* Schema Version        2006/01    *
+************************************
+* Added Instances
+* Added the notion of an Entity
+* Added isDefined and isInferred flags to a concept.
+* Added isImported flag to supportedCodingScheme.
+* Modified the relations container to allow for associations between any two entity.
+
+************************************
+* Changes committed on 01/21/2008  *
+* Schema Version        2006/01    *
+************************************
+* Changed Model to support Hierarchy metadata in the coding scheme
+* #7880
+
+* Additions include:
+
+* Adding a SupportedHierarchy class to naming namespace.
+* Added a SupportedHierarchy element to the CodingScheme class. 
+
+************************************
+* Changes committed on 02/12/2007  *
+* Schema Version        2006/01    *
+************************************
+* Updated vocabulary revision model to support generic properties for value domain entries.
+
+* Additions to model:
+
+* addPropertyToValueDomainType.property
+* addPropertyToValueDomainType.language
+* addPropertyToValueDomainType.presentationFormat
+* addPropertyToValueDomainType.source
+* addPropertyToValueDomainType.usageContext
+* addPropertyToValueDomainType.propertyQualifier
+* addPropertyToValueDomainType.text
+* addPropertyToValueDomainEntryType.property
+* addPropertyToValueDomainEntryType.language
+* addPropertyToValueDomainEntryType.presentationFormat
+* addPropertyToValueDomainEntryType.source
+* addPropertyToValueDomainEntryType.usageContext
+* addPropertyToValueDomainEntryType.propertyQualifier
+* addPropertyToValueDomainEntryType.text
+
+
+************************************************************************
+Changes committed before this weren't documented in this file.
