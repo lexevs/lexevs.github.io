@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://LexGrid.org/schema/2004/02/LexGrid/naming" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:lgNaming="http://LexGrid.org/schema/2004/02/LexGrid/naming" xmlns:lgBuiltin="http://LexGrid.org/schema/2004/02/LexGrid/builtins" xmlns:lg="http://LexGrid.org/schema/2004/02/LexGrid" xmlns:ldap="http://LexGrid.org/schema/2004/02/LexGrid/ldap" elementFormDefault="qualified">
+        <xs:import namespace="http://LexGrid.org/schema/2004/02/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2004/02/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> naming  -->
+        <!-- ================================================= -->
+        <xs:annotation>
+                <xs:documentation>Basic builtin types</xs:documentation>
+        </xs:annotation>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: <<XSDsimpleType>> URN  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:simpleType name="URN">
+                <xs:annotation>
+                        <xs:documentation>A Univeral Resource Identifier A universal resource name. The global name of a resource such as a source, coding scheme, concept code, etc. Use of the label portion of the labeledURI is discouraged, and the type may change to"unlabeled" URI if one is introduced</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.5.6</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:restriction base="lgBuiltin:tsURN"/>
+        </xs:simpleType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: URNMap  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="URNMap">
+                <xs:annotation>
+                        <xs:documentation> The declaration of a local name and the URN that it represents A mapping between a URN and a localName. Format: [&amp;urn&gt;] localName The behavior of an omitted urn is context specific. Each subtype has to specify this </xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.5.8</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgBuiltin:localName">
+                                <xs:attribute name="urn" type="lgNaming:URN"/>
+                        </xs:extension>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedAssociation  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedAssociation">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for an association.</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.60</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedAssociationQualifier  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedAssociationQualifier">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for an association qualifier</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.61</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedCodingScheme  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedCodingScheme">
+                <xs:annotation>
+                        <xs:documentation> The URN and local name of an external coding scheme The URN portion maps to the registeredName of the referenced scheme The local name is local to the referencing object </xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.100</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedConceptStatus  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedConceptStatus">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a concept status value</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.96</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedContext  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedContext">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a usage context</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.58</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedDataType  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedDataType">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a data type (usually XML Schema Datatype)</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.97</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedFormat  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedFormat">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name for a presentation format (usually mime type)</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.57</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedLanguage  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedLanguage">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of a spoken or written language</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.56</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedProperty  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedProperty">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of a property</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.59</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedRepresentationalForm  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedRepresentationalForm">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of a representational form (e.g. acronym, eponym) </xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.101</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: supportedSource  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="supportedSource">
+                <xs:annotation>
+                        <xs:documentation>The URN and local name of an external source reference</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.6.85</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleContent>
+                        <xs:extension base="lgNaming:URNMap"/>
+                </xs:simpleContent>
+        </xs:complexType>
+</xs:schema>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://LexGrid.org/schema/2004/02/LexGrid/concepts" xmlns:ldap="http://LexGrid.org/schema/2004/02/LexGrid/ldap" xmlns:lgBuiltin="http://LexGrid.org/schema/2004/02/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2004/02/LexGrid/naming" xmlns:lgCommon="http://LexGrid.org/schema/2004/02/LexGrid/commonTypes" xmlns:lgCon="http://LexGrid.org/schema/2004/02/LexGrid/concepts" elementFormDefault="qualified">
+        <xs:import namespace="http://LexGrid.org/schema/2004/02/LexGrid/naming" schemaLocation="naming.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2004/02/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2004/02/LexGrid/commonTypes" schemaLocation="commonTypes.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2004/02/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> concepts  -->
+        <!-- ================================================= -->
+       
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: codedEntry  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="codedEntry">
+                <xs:annotation>
+                        <xs:documentation>A concept code within a coding scheme or a coding scheme version</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.5.1.4.1.2114.108.1.7.13</ldap:oid>
+                                <ldap:rdn>conceptCode</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCommon:versionableAndDescribable">
+                                <xs:sequence>
+                                        <xs:element name="presentation" type="lgCon:presentation" maxOccurs="unbounded">
+                                                <xs:annotation>
+                                                        <xs:documentation>Representation of designation of the concept code</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="definition" type="lgCon:definition" minOccurs="0" maxOccurs="unbounded">
+                                                <xs:annotation>
+                                                        <xs:documentation>Definition or description of the intent of the concept code</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="comment" type="lgCon:comment" minOccurs="0" maxOccurs="unbounded">
+                                                <xs:annotation>
+                                                        <xs:documentation>Annotation or other note about the state or usage of the concept code</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="instruction" type="lgCon:instruction" minOccurs="0" maxOccurs="unbounded">
+                                                <xs:annotation>
+                                                        <xs:documentation>Formal or semi-formal notes about when or how to use the concept code</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="property" type="lgCon:property" minOccurs="0" maxOccurs="unbounded">
+                                                <xs:annotation>
+                                                        <xs:documentation>Additional tag and associated value that further identifies or describes the intent of the concept code</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="conceptCode" type="lgCommon:conceptCode" use="required">
+                                        <xs:annotation>
+                                                <xs:documentation>Unique concept code within coding system</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="isActive" type="lgBuiltin:tsBoolean">
+                                        <xs:annotation>
+                                                <xs:documentation>TRUE means that the code is currently active within the coding scheme. Default: TRUE</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="conceptStatus" type="lgBuiltin:localName">
+                                        <xs:annotation>
+                                                <xs:documentation>Current status of the concept. Must be in supportedConceptStatus</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="isAnonymous" type="lgBuiltin:tsBoolean">
+                                        <xs:annotation>
+                                                <xs:documentation>TRUE means that this node doesn't have an actual code in the code system</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                        </xs:extension>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: comment  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="comment">
+                <xs:annotation>
+                        <xs:documentation>A comment or annotation for a concept</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.5</ldap:oid>
+                                <ldap:rdn>propertyId</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCon:property"/>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: concepts  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:element name="concepts" type="lgCon:concepts"/>
+        <xs:complexType name="concepts">
+                <xs:annotation>
+                        <xs:documentation>A set of coded entries in a coding scheme</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.86</ldap:oid>
+                                <ldap:rdn>dc</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                        <xs:element name="concept" type="lgCon:codedEntry" maxOccurs="unbounded">
+                                <xs:annotation>
+                                        <xs:documentation>The set of concepts</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                </xs:sequence>
+                <xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="Concepts"/>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: definition  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="definition">
+                <xs:annotation>
+                        <xs:documentation>A textual definition of a concept</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.4</ldap:oid>
+                                <ldap:rdn>propertyId</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCon:property">
+                                <xs:attribute name="isPreferred" type="lgBuiltin:tsBoolean">
+                                        <xs:annotation>
+                                                <xs:documentation>TRUE means this is the preferred definition for the given language</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                        </xs:extension>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: instruction  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="instruction">
+                <xs:annotation>
+                        <xs:documentation>A formal instruction for the use of a concept</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.6</ldap:oid>
+                                <ldap:rdn>propertyId</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCon:property"/>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: presentation  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="presentation">
+                <xs:annotation>
+                        <xs:documentation> A designation of a given concept. The presentation identifier must, at bare minimum, uniquely map to a given text string, bitmap, etc. within the context of the containing concept. In some terminologies, every unique text string will have exactly one presentation identifier, which means that the same presentation identifier may occur under more than one concept. In other terminologies, there may be more than one identifier for a given text string, meaning that the presentation identifier uniquely determines the concept. Service software must not assume *either* model. (See: property for additional elements)</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.7</ldap:oid>
+                                <ldap:rdn>propertyId</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCon:property">
+                                <xs:attribute name="isPreferred" type="lgBuiltin:tsBoolean">
+                                        <xs:annotation>
+                                                <xs:documentation>TRUE means that, *if* the text meets the selection criteria, it should be the preferred form</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="degreeOfFidelity" type="lgBuiltin:localName">
+                                        <xs:annotation>
+                                                <xs:documentation>How closely a term approximates the meaning of a concept</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="matchIfNoContext" type="lgBuiltin:tsBoolean">
+                                        <xs:annotation>
+                                                <xs:documentation>TRUE if the list entry matches if no context is supplied</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="representationalForm" type="lgBuiltin:localName">
+                                        <xs:annotation>
+                                                <xs:documentation>How the term represents the concept (abbrev, acronym, etc.) - Must be in supportedRepresentationalForm</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                        </xs:extension>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: property  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="property">
+                <xs:annotation>
+                        <xs:documentation>A description, definition, annotation or other attribute that serves to further define or identify a coded term</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.24</ldap:oid>
+                                <ldap:rdn>propertyId</ldap:rdn>
+                                <ldap:objectClass>propertyClass</ldap:objectClass>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                        <xs:element name="source" type="lgCommon:source" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                        <xs:documentation>The source(s) of this property. Must be in supportedSource</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="usageContext" type="lgBuiltin:localName" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                        <xs:documentation>The context(s) in which this property applies. Must be in supportedContext</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="text" type="lgCommon:text" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Text of the property if it is ASCII</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="blob" type="lgCommon:blob" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Contents of the property if it is binary</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                </xs:sequence>
+                <xs:attribute name="property" type="lgBuiltin:localName" use="required">
+                        <xs:annotation>
+                                <xs:documentation>The local name or tag of the property. Must be in supportedProperty</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="propertyId" type="lgCommon:propertyId" use="required">
+                        <xs:annotation>
+                                <xs:documentation>The unique name of the property within the context of the coded entry</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="language" type="lgCommon:language">
+                        <xs:annotation>
+                                <xs:documentation>The written or spoken language of the property. Must be in supportedLanguage. Default- defaultLanguage for coding Scheme</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="presentationFormat" type="lgBuiltin:localName">
+                        <xs:annotation>
+                                <xs:documentation>Format or mime type of the property. Must be in supportedFormat. Default: text/plain</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="dataType" type="lgBuiltin:localName">
+                        <xs:annotation>
+                                <xs:documentation>The data type of the property. Must be in supportedDataType</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+        </xs:complexType>
+</xs:schema>
