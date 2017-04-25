@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:lbPreferences="http://LexGrid.org/LexBIG/LoadPreferences"> 
+ 
+<xs:import namespace="http://LexGrid.org/LexBIG/LoadPreferences"
+		schemaLocation="LoadPreferences.xsd"/>
+		
+		
+		
+<xs:element name="OWLLoaderPreferences">
+<xs:complexType>
+	<xs:complexContent>
+		<xs:extension base="lbPreferences:LoaderPreferences">
+		<xs:sequence>	
+		
+			<xs:element name="PropnamePres" type="xs:string" minOccurs="0" />	
+			<xs:element name="PropnamePrimitive" type="xs:string" minOccurs="0" />	
+			<xs:element name="PropnameType" type="xs:string" minOccurs="0" />	
+			<xs:element name="DatatypeBoolean" type="xs:string" minOccurs="0" />	
+			<xs:element name="AssocHastype" type="xs:string" minOccurs="0" />	
+			<xs:element name="AssocHastypeURN" type="xs:string" minOccurs="0" />	
+			<xs:element name="ConceptAltName" type="xs:string" minOccurs="0" />	
+			<xs:element name="MatchConceptCode" type="xs:string" minOccurs="0" />
+			<xs:element name="MatchConceptStatus" type="xs:string" minOccurs="0" />	
+			<xs:element name="MatchNoopNamespaces" type="xs:string" minOccurs="0" />	
+			<xs:element name="MatchRootName" type="xs:string" minOccurs="0" />	
+			<xs:element name="MatchXMLRepformNames" type="xs:string" minOccurs="0" />	
+			<xs:element name="MatchXMLSourceNames" type="xs:string" minOccurs="0" />
+			<xs:element name="MatchXMLTextNames" type="xs:string" minOccurs="0" />
+			<xs:element name="IsDBXrefSource" type="xs:boolean" minOccurs="0" />
+			<xs:element name="IsDBXrefRepform" type="xs:boolean" minOccurs="0" />			
+					
+			<xs:element name="PrioritizedCommentNames" minOccurs="0" nillable="true">
+      			<xs:complexType>
+  					<xs:sequence>
+    					<xs:element name="name" nillable="true" maxOccurs=
+						"unbounded" minOccurs="0" type="xs:string"/>
+  					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="PrioritizedDefinitionNames" minOccurs="0" nillable="true">
+      			<xs:complexType>
+  					<xs:sequence>
+    					<xs:element name="name" nillable="true" maxOccurs=
+						"unbounded" minOccurs="0" type="xs:string"/>
+  					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="PrioritizedPresentationNames" minOccurs="0" nillable="true">
+      			<xs:complexType>
+  					<xs:sequence>
+    					<xs:element name="name" nillable="true" maxOccurs=
+						"unbounded" minOccurs="0" type="xs:string"/>
+  					</xs:sequence>
+				</xs:complexType>
+			</xs:element>			
+				
+		</xs:sequence>	
+		</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+ </xs:element>
+</xs:schema>
+
