@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://LexGrid.org/schema/2005/01/LexGrid/service" xmlns:ldap="http://LexGrid.org/schema/2005/01/LexGrid/ldap" xmlns:lgBuiltin="http://LexGrid.org/schema/2005/01/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2005/01/LexGrid/naming" xmlns:lgCommon="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:service="http://LexGrid.org/schema/2005/01/LexGrid/service" xmlns:lgCS="http://LexGrid.org/schema/2005/01/LexGrid/codingSchemes" xmlns:lgVD="http://LexGrid.org/schema/2005/01/LexGrid/valueDomains" xmlns:lgVer="http://LexGrid.org/schema/2005/01/LexGrid/versions" elementFormDefault="qualified">
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/naming" schemaLocation="naming.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" schemaLocation="commonTypes.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/codingSchemes" schemaLocation="codingSchemes.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/versions" schemaLocation="versions.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/valueDomains" schemaLocation="valueDomains.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> service  -->
+        <!-- ================================================= -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: serviceClass  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:element name="service">
+                <xs:annotation>
+                        <xs:documentation>A service representing coding schemes and value domains</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.1</ldap:oid>
+                                <ldap:rdn>service</ldap:rdn>
+                                <ldap:objectClass>serviceClass</ldap:objectClass>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                        <xs:complexContent>
+                                <xs:extension base="lgCommon:describable">
+                                        <xs:sequence>
+                                                <xs:element  ref="lgCS:codingSchemes" minOccurs="0">
+                                                        <xs:annotation>
+                                                                <xs:documentation>The set of coding schemes represented by tthis service</xs:documentation>
+                                                        </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="history" type="lgVer:history" minOccurs="0">
+                                                        <xs:annotation>
+                                                                <xs:documentation>The history of edits on the coding scheme and/or value domain content.</xs:documentation>
+                                                        </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="valueDomains" type="lgVD:valueDomains" minOccurs="0">
+                                                        <xs:annotation>
+                                                                <xs:documentation>The set of value domains (ordered collections of concept codes) represented by this service</xs:documentation>
+                                                        </xs:annotation>
+                                                </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="service" type="lgBuiltin:localName" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>The name that is used to reference the service extenally</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="version" type="lgCommon:version">
+                                                <xs:annotation>
+                                                        <xs:documentation>The ersion of the service implementation represented by this node</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                </xs:extension>
+                        </xs:complexContent>
+                </xs:complexType>
+        </xs:element>
+</xs:schema>

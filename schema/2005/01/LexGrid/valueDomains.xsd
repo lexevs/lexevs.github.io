@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://LexGrid.org/schema/2005/01/LexGrid/valueDomains" xmlns:ldap="http://LexGrid.org/schema/2005/01/LexGrid/ldap" xmlns:lgBuiltin="http://LexGrid.org/schema/2005/01/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2005/01/LexGrid/naming" xmlns:lgCommon="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" xmlns:lgVD="http://LexGrid.org/schema/2005/01/LexGrid/valueDomains" xmlns:lgVersions="http://LexGrid.org/schema/2005/01/LexGrid/versions" elementFormDefault="qualified">
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/naming" schemaLocation="naming.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" schemaLocation="commonTypes.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/versions" schemaLocation="versions.xsd"/>
+	<xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+	<!-- ================================================= -->
+	<!-- Package: <<XSDschema>> valueDomains  -->
+	<!-- ================================================= -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: pickListEntry  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="pickListEntry">
+		<xs:annotation>
+			<xs:documentation>A qualified concept code accompanied by the appropriate textual representation. Each concept within a value domain may be represented in a selection list or lists for various contexts. There may be multiple pickList entries per value domain entry and there may be multiple context identifiers per pick list.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.19</ldap:oid>
+				<ldap:rdn>id</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="pickText" type="lgBuiltin:tsCaseSensitiveDirectoryString">
+				<xs:annotation>
+					<xs:documentation>Text that represents the concept code in this language and context</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="usageContext" type="lgBuiltin:localName" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Local name(s) for the context(s) in which pickText applies. Must be in supportedContext list</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="lgCommon:id" use="required">
+			<xs:annotation>
+				<xs:documentation>Unique identifier of this entry</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="isDefault" type="lgBuiltin:tsBoolean">
+			<xs:annotation>
+				<xs:documentation>TRUE means that this is the default entry for the supplied language and context.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="matchIfNoContext" type="lgBuiltin:tsBoolean">
+			<xs:annotation>
+				<xs:documentation>TRUE means that this entry can be used if no contexts are supplied</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="language" type="lgCommon:language">
+			<xs:annotation>
+				<xs:documentation>Local name for the pick text language. Must be in supportedLanguage</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: valueDomain  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="valueDomain">
+		<xs:annotation>
+			<xs:documentation>A value domain - an ordered list of concepts and representations. A value domain is globally unique, and the URN is specified by the registeredName attribute. The local name identifies the value domain within the service itself. The value domain itself represents the current (default) state of the value domain. An ordered list of concept codes for a given attribute.</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.5.1.4.1.2114.108.1.7.15</ldap:oid>
+				<ldap:rdn>valueDomain</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="lgCommon:describable">
+					<xs:sequence>
+						<xs:element name="source" type="lgCommon:source" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The source or orginator of the value domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="supportedCodingScheme" type="lgNaming:supportedCodingScheme" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A list of the coding scheme URN&apos;s and local names referenced by this value domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="supportedSource" type="lgNaming:supportedSource" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Information sources used in the domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="supportedLanguage" type="lgNaming:supportedLanguage" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A list of the language URN&apos;s and local names referenced by this value domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="supportedContext" type="lgNaming:supportedContext" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A list of the context URN&apos;s and local names referenced by this value domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="domainConcept" type="lgVD:valueDomainEntry" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>An ordered list of coded concepts represented by this value domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="versions" type="lgVD:vdVersions" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Previous versions of this value domain</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="valueDomain" type="lgBuiltin:localName" use="required">
+						<xs:annotation>
+							<xs:documentation>Unique name of the domain within the service</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="defaultCodingScheme" type="lgCommon:defaultCodingScheme" use="required">
+						<xs:annotation>
+							<xs:documentation>Local name of the primary coding scheme from which the domain is drawn. Must be in supportedCodingScheme</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="defaultLanguage" type="lgCommon:defaultLanguage" use="required">
+						<xs:annotation>
+							<xs:documentation>Default language used in the domain if not otherwise specified. Must be in supportedLanguage list</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="registeredName" type="lgCommon:registeredName">
+						<xs:annotation>
+							<xs:documentation>Official URN of this value domain</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="representsVersion" type="lgCommon:version">
+						<xs:annotation>
+							<xs:documentation>Version that this value domain represents</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="representsRealmOrContext" type="lgBuiltin:localName">
+						<xs:annotation>
+							<xs:documentation>The realm or context in which this value domain applies. Note the overloading of the "context" field - in this case, the assumption is that this is a geopolitical or some broader realm. </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: valueDomainEntry  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="valueDomainEntry">
+		<xs:annotation>
+			<xs:documentation>The representation of a coded concept that belongs to the value domain. A value domain entry may either
+			                  reference a concept code and, optionally, all of the "children" (via. the hasSubtype relationship for the time being)
+			                  or if may reference a second value domain entry.  If it references a second value domain entry, the concept code
+			                  reference represents the "headcode" of the second entry.  It may be selectable or not, but it *cannot* include the
+			                  children of the headcode.  
+			                  Rule: not(null(includesValueDomain)) -> includeChildren = false
+			                        includeChildren=false and null(includesValueDomain) -> isSelectable=true
+			</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.5.1.4.1.2114.108.1.7.16</ldap:oid>
+				<ldap:rdn>id</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="lgCommon:versionable">
+				<xs:sequence>
+					<xs:element name="pickListEntry" type="lgVD:pickListEntry" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The term or terms that can represent the concept code in the list</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="includesValueDomain" type="lgCommon:registeredName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The name of a valueDomainEntry that is include as part of this domain.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="id" type="lgCommon:id" use="required">
+					<xs:annotation>
+						<xs:documentation>Unique list identifier</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="codingScheme" type="lgBuiltin:localName">
+					<xs:annotation>
+						<xs:documentation>The local name of the coding scheme from which conceptCode is drawn. If present, must be in supportedCodingScheme. If absent, defaultCodingScheme from valud domain is used</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="conceptCode" type="lgCommon:conceptCode" use="required">
+					<xs:annotation>
+						<xs:documentation>A coded concept that is a member of this domain</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="entryOrder" type="lgCommon:entryOrder">
+					<xs:annotation>
+						<xs:documentation>The relative order to of this concept within the value domain. if entry order is not supplied, conceptCodes will sort in ascending id, but AFTER any codes that have an order.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="isSelectable" type="xs:boolean" default="true">
+					<xs:annotation>
+						<xs:documentation>Indicates that the specified valueDomainEntry is selectable or not.  A valueDomainEntry with the isSelectable flag set to true indicates that the valueDomainEntry is not atomic., and may contain child valueDomainEntries.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="includeChildren" type="xs:boolean" default="false">
+					<xs:annotation>
+						<xs:documentation>Indicates wether the valueDomainEntry includes child concepts.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: valueDomainVersion  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="valueDomainVersion">
+		<xs:annotation>
+			<xs:documentation>
+				<p>A static snapshot of a value domain at a point in time</p>
+			</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.18</ldap:oid>
+				<ldap:rdn>versionId</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="lgVersions:entityVersion">
+				<xs:sequence>
+					<xs:element name="valueDomainEntry" type="lgVD:valueDomainEntry" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>An entry at a point in time in a value domain</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: valueDomains  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:element name="valueDomains" type="lgVD:valueDomains"></xs:element>
+	<xs:complexType name="valueDomains">
+		<xs:annotation>
+			<xs:documentation>A directory of value domains</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.87</ldap:oid>
+				<ldap:rdn>dc</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="lgVD:valueDomain" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>List of value domains</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="valueDomains">
+			<xs:annotation>
+				<xs:documentation>Node identifier</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Class: vdVersions  -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<xs:complexType name="vdVersions">
+		<xs:annotation>
+			<xs:documentation>A list of value domain versions within a value domain</xs:documentation>
+			<xs:appinfo>
+				<ldap:oid>1.3.6.1.4.1.2114.108.1.7.88</ldap:oid>
+				<ldap:rdn>dc</ldap:rdn>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="version" type="lgVD:valueDomainVersion" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>List of versions</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="versions">
+			<xs:annotation>
+				<xs:documentation>Node identifier</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

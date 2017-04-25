@@ -1,0 +1,68 @@
+LexGrid Schema Changelog
+************************************
+Changes committed on	11/30/2005 *
+Schema Version 			2005/01    *
+************************************
+* concepts.xsd - Changed maximum cardinality of propertyLink from 1 to *
+* versions.xsd - Added versionDate to entityVersion to allow each edit to have its own timestamp, independent of the release date.
+* commonTypes.xsd - 1) added changeType - an enumeration of types of changes that may occur
+*                   2) added modifyHistory - a sequence of changeTypes coupled to a specific version
+*					3) changed the type of modVersion in the versionable mixin from "version" to "modifyHistory"
+*					4) changed the type of modVersion in the versionableAndDescribable mixin the same way
+
+
+
+************************************
+Changes committed on	11/11/2005 *
+Schema Version 			2005/01    *
+************************************
+* Pulled the PropertyLinksList and put propertyLink directly under coded entry.
+
+************************************
+Changes committed on	10/21/2005 *
+Schema Version 			2005/01    *
+************************************
+
+The latest, greatest LexGrid schema will be available in CVS by the end of today.  The changes include:
+--------------------
+EntityDescription, CopyRight and Text properties have been changed to support embedded XML.  The namespace restriction is set to "##other" which, ideally, would say that the namespace can't come from the LexGrid schema - it has to come from an external schema such as html.  Unfortunately, ##other is bound really early, which permits any namespace other than the one it was declared in (e.g. builtIns, lgCommon).  Nothing to worry about for now, but be aware that we'd really like to record those fields as:
+<copyRight xmlns:html="…">This is a <html:b>bold</html:b> field</copyRight>
+---------------------
+There is a new supportedXXX - supportedPropertyLink - in the codeSystem definition.  It is for recording property/property links within a code system (e.g. acronymFor, abbreviationOf, spellingVariantOf, translationOf, etc.)  The definition of supportedRepresentationalForm has been changed slightly to reflect that it is intended to represent the relationship of the property with the concept (e.g. noun, adjective, eponym, etc.).
+
+There is a new optional element in the codedEntry element - "links" where properties can be associated.  As an example:
+
+	<supportedPropertyLink>acronymFor</supportedPropertyLink>
+
+	<concepts dc="Concepts">
+		<concept xmlns="http://LexGrid.org/schema/2005/01/LexGrid/concepts" conceptCode="1">
+			<presentation property="textualPresentation" propertyId="123">
+				<text>Bunny Vacuum 9000</text>
+			</presentation>
+			<presentation property="textualPresentation" propertyId="124">
+				<text>BV9000</text>
+			</presentation>
+			<links>
+				<link sourceProperty="124" link="acronymFor" targetProperty="123"/>
+				...
+			</links>
+		</concept>
+	</concepts>
+------------------
+There have been a couple of tweaks in the relationships section.
+	a) reverseName is now optional.  Its use is still encouraged, but we no longer have to generate it for owly type things
+	b) there is a new association attribute called "inverse", which can be pointed at the local name of another association.  It is optional
+	c) There is a new association attribute called "isNavigable".  It is optional, and the default is "true", which reflects current semantics. In an Owl'esque or NCI'esque world, however, we would set this to false.
+
+=================
+To the best of my knowledge, all of these changes are backwards compatible.  I'm not on a network right now, so I can't test them extensively, but we'll need to re-parse them at some future point in time.
+
+Note that the schema "version" is still 2005/01, as we never really completed the rollout of the previous changes.
+
+
+
+
+
+
+************************************************************************
+Changes committed before this weren't documented in this file.

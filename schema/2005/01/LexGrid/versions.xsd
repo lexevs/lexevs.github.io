@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://LexGrid.org/schema/2005/01/LexGrid/versions" xmlns:ldap="http://LexGrid.org/schema/2005/01/LexGrid/ldap" xmlns:lgBuiltin="http://LexGrid.org/schema/2005/01/LexGrid/builtins" xmlns:lgNaming="http://LexGrid.org/schema/2005/01/LexGrid/naming" xmlns:lgCommon="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" xmlns:lgVer="http://LexGrid.org/schema/2005/01/LexGrid/versions" elementFormDefault="qualified">
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/naming" schemaLocation="naming.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/builtins" schemaLocation="builtins.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/commonTypes" schemaLocation="commonTypes.xsd"/>
+        <xs:import namespace="http://LexGrid.org/schema/2005/01/LexGrid/ldap" schemaLocation="ldap.xsd"/>
+        <!-- ================================================= -->
+        <!-- Package: <<XSDschema>> versions  -->
+        <!-- ================================================= -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: entityVersion  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="entityVersion">
+                <xs:annotation>
+                        <xs:documentation>A static snapshot of the given entity</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.21</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexContent>
+                        <xs:extension base="lgCommon:describable">
+                                <xs:attribute name="isComplete" type="lgBuiltin:tsBoolean" use="required">
+                                        <xs:annotation>
+                                                <xs:documentation>If true, this entity represents a complete copy of the particular release. If false, it only carries a delta</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="version" type="lgCommon:version" use="required">
+                                        <xs:annotation>
+                                                <xs:documentation>The unique version identifier</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                 <xs:attribute name="versionDate" type="lgBuiltin:tsTimestamp">
+                                        <xs:annotation>
+                                                <xs:documentation>The date that this particular version was commited.</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="releaseURN" type="lgNaming:URN">
+                                        <xs:annotation>
+                                                <xs:documentation>URN of the release from which this version is drawn</xs:documentation>
+                                        </xs:annotation>
+                                </xs:attribute>
+                        </xs:extension>
+                </xs:complexContent>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: history  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:complexType name="history">
+                <xs:annotation>
+                        <xs:documentation>A list of system releases within a service</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.82</ldap:oid>
+                                <ldap:rdn>dc</ldap:rdn>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                        <xs:element ref="lgVer:systemRelease" maxOccurs="unbounded">
+                                <xs:annotation>
+                                        <xs:documentation>List of individual releases</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                </xs:sequence>
+                <xs:attribute name="dc" type="lgCommon:dc" use="required" fixed="history">
+                        <xs:annotation>
+                                <xs:documentation>Node identifier</xs:documentation>
+                        </xs:annotation>
+                </xs:attribute>
+        </xs:complexType>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Class: systemRelease  -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <xs:element name="systemRelease">
+                <xs:annotation>
+                        <xs:documentation>A snapshot of one or more coding schemes or value sets at a point in time</xs:documentation>
+                        <xs:appinfo>
+                                <ldap:oid>1.3.6.1.4.1.2114.108.1.7.25</ldap:oid>
+                                <ldap:oid>releaseId</ldap:oid>
+                        </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                        <xs:complexContent>
+                                <xs:extension base="lgCommon:describable">
+                                        <xs:attribute name="releaseId" type="lgBuiltin:tsCaseIgnoreIA5String" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>The unique name of a system release</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseAgency" type="lgNaming:URN" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>Agency responsible for a release</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseURN" type="lgNaming:URN" use="required">
+                                                <xs:annotation>
+                                                        <xs:documentation>The URN of a system release</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseDate" type="lgBuiltin:tsTimestamp">
+                                                <xs:annotation>
+                                                        <xs:documentation>The date time of a release</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="releaseOrder" type="lgBuiltin:tsInteger">
+                                                <xs:annotation>
+                                                        <xs:documentation>A positive integer that defines the relative order of a release</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="isLatest" type="lgBuiltin:tsBoolean">
+                                                <xs:annotation>
+                                                        <xs:documentation>TRUE if this version of the entity is the latest that is represented in the service</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+                                </xs:extension>
+                        </xs:complexContent>
+                </xs:complexType>
+        </xs:element>
+</xs:schema>
